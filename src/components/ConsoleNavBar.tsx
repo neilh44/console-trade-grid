@@ -3,60 +3,60 @@ import { Button } from '@/components/ui/button';
 
 const ConsoleNavBar = () => {
   return (
-    <div className="flex items-center justify-between w-full bg-gradient-ps-dark border border-ps-blue/30 rounded-xl sm:rounded-2xl p-3 sm:p-4 md:p-6 mb-4 sm:mb-6 md:mb-8 shadow-ps">
+    <div className="flex items-center justify-between w-full max-w-full bg-gradient-ps-dark border border-ps-blue/30 rounded-lg sm:rounded-xl md:rounded-2xl p-2 sm:p-3 md:p-4 lg:p-6 mb-2 sm:mb-4 md:mb-6 lg:mb-8 shadow-ps overflow-hidden">
       {/* Left side - Navigation */}
-      <div className="flex items-center space-x-2 sm:space-x-4 md:space-x-6">
+      <div className="flex items-center space-x-1 sm:space-x-2 md:space-x-4 lg:space-x-6 flex-shrink-0">
         <Button
           variant="ghost"
           size="sm"
-          className="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 p-0 hover:bg-ps-blue/20 hover:shadow-ps border border-ps-blue/30 rounded-lg sm:rounded-xl transition-all duration-300"
+          className="w-6 h-6 sm:w-8 sm:h-8 md:w-10 md:h-10 lg:w-12 lg:h-12 p-0 hover:bg-ps-blue/20 hover:shadow-ps border border-ps-blue/30 rounded-md sm:rounded-lg md:rounded-xl transition-all duration-300"
         >
-          <ChevronLeft className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 text-ps-blue" />
+          <ChevronLeft className="w-3 h-3 sm:w-4 sm:h-4 md:w-5 md:h-5 lg:w-6 lg:h-6 text-ps-blue" />
         </Button>
         
-        <div className="flex items-center space-x-2 sm:space-x-3 md:space-x-4 text-ps-blue font-gaming font-bold">
-          <div className="flex items-center space-x-1 sm:space-x-2">
-            <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-ps-blue rounded-full animate-pulse" />
-            <span className="text-xs sm:text-sm md:text-xl tracking-wide sm:tracking-wider">PAGE</span>
+        <div className="flex items-center space-x-1 sm:space-x-2 md:space-x-3 lg:space-x-4 text-ps-blue font-gaming font-bold">
+          <div className="flex items-center space-x-1">
+            <div className="w-1 h-1 sm:w-1.5 sm:h-1.5 md:w-2 md:h-2 bg-ps-blue rounded-full animate-pulse" />
+            <span className="text-xs sm:text-sm md:text-base lg:text-xl tracking-tight sm:tracking-wide md:tracking-wider">PAGE</span>
           </div>
-          <span className="text-lg sm:text-2xl md:text-3xl text-foreground">1</span>
+          <span className="text-sm sm:text-lg md:text-2xl lg:text-3xl text-foreground">1</span>
         </div>
         
         <Button
           variant="ghost"
           size="sm"
-          className="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 p-0 hover:bg-ps-blue/20 hover:shadow-ps border border-ps-blue/30 rounded-lg sm:rounded-xl transition-all duration-300"
+          className="w-6 h-6 sm:w-8 sm:h-8 md:w-10 md:h-10 lg:w-12 lg:h-12 p-0 hover:bg-ps-blue/20 hover:shadow-ps border border-ps-blue/30 rounded-md sm:rounded-lg md:rounded-xl transition-all duration-300"
         >
-          <ChevronRight className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 text-ps-blue" />
+          <ChevronRight className="w-3 h-3 sm:w-4 sm:h-4 md:w-5 md:h-5 lg:w-6 lg:h-6 text-ps-blue" />
         </Button>
       </div>
       
       {/* Center - Main title */}
-      <div className="text-center flex-1 mx-2 sm:mx-4">
-        <h1 className="text-lg sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold text-foreground font-gaming tracking-wide sm:tracking-wider md:tracking-widest">
+      <div className="text-center flex-1 mx-1 sm:mx-2 md:mx-4 min-w-0">
+        <h1 className="text-sm sm:text-lg md:text-2xl lg:text-3xl xl:text-4xl 2xl:text-5xl font-bold text-foreground font-gaming tracking-tight sm:tracking-wide md:tracking-wider lg:tracking-widest truncate">
           PLAYSTATION
         </h1>
-        <div className="text-xs sm:text-sm md:text-base text-ps-blue font-gaming tracking-wide sm:tracking-wider mt-0.5 sm:mt-1">
+        <div className="text-xs sm:text-sm md:text-base text-ps-blue font-gaming tracking-tight sm:tracking-wide md:tracking-wider mt-0.5 truncate">
           TRADING CONSOLE
         </div>
       </div>
       
       {/* Right side - System indicators */}
-      <div className="flex items-center space-x-2 sm:space-x-3 md:space-x-4">
-        {/* System status icons - hide some on mobile */}
-        <div className="flex items-center space-x-2 sm:space-x-3">
-          <Wifi className="w-4 h-4 sm:w-5 sm:h-5 text-neon-green animate-pulse" />
-          <Volume2 className="w-4 h-4 sm:w-5 sm:h-5 text-ps-blue hidden sm:block" />
-          <Battery className="w-4 h-4 sm:w-5 sm:h-5 text-neon-green" />
+      <div className="flex items-center space-x-1 sm:space-x-2 md:space-x-3 lg:space-x-4 flex-shrink-0">
+        {/* System status icons - progressive hiding on smaller screens */}
+        <div className="flex items-center space-x-1 sm:space-x-2 md:space-x-3">
+          <Wifi className="w-3 h-3 sm:w-4 sm:h-4 md:w-5 md:h-5 text-neon-green animate-pulse" />
+          <Volume2 className="w-3 h-3 sm:w-4 sm:h-4 md:w-5 md:h-5 text-ps-blue hidden md:block" />
+          <Battery className="w-3 h-3 sm:w-4 sm:h-4 md:w-5 md:h-5 text-neon-green hidden sm:block" />
         </div>
         
         {/* Settings */}
         <Button
           variant="ghost"
           size="sm"
-          className="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 p-0 hover:bg-ps-blue/20 hover:shadow-ps border border-ps-blue/30 rounded-lg sm:rounded-xl transition-all duration-300 group"
+          className="w-6 h-6 sm:w-8 sm:h-8 md:w-10 md:h-10 lg:w-12 lg:h-12 p-0 hover:bg-ps-blue/20 hover:shadow-ps border border-ps-blue/30 rounded-md sm:rounded-lg md:rounded-xl transition-all duration-300 group"
         >
-          <Settings className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 text-ps-blue group-hover:animate-spin" />
+          <Settings className="w-3 h-3 sm:w-4 sm:h-4 md:w-5 md:h-5 lg:w-6 lg:h-6 text-ps-blue group-hover:animate-spin" />
         </Button>
       </div>
     </div>
