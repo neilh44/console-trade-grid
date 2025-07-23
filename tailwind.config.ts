@@ -61,7 +61,32 @@ export default {
 					'accent-foreground': 'hsl(var(--sidebar-accent-foreground))',
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
+				},
+				// Gaming console colors
+				bull: {
+					DEFAULT: 'hsl(var(--bull))',
+					glow: 'hsl(var(--bull-glow))'
+				},
+				bear: {
+					DEFAULT: 'hsl(var(--bear))',
+					glow: 'hsl(var(--bear-glow))'
+				},
+				console: {
+					DEFAULT: 'hsl(var(--console-accent))',
+					glow: 'hsl(var(--console-glow))'
 				}
+			},
+			backgroundImage: {
+				'gradient-console': 'var(--gradient-console)',
+				'gradient-bull': 'var(--gradient-bull)',
+				'gradient-bear': 'var(--gradient-bear)',
+				'gradient-button': 'var(--gradient-button)',
+			},
+			boxShadow: {
+				'console': 'var(--shadow-console)',
+				'bull': 'var(--shadow-bull)',
+				'bear': 'var(--shadow-bear)',
+				'glow': 'var(--shadow-glow)',
 			},
 			borderRadius: {
 				lg: 'var(--radius)',
@@ -84,11 +109,32 @@ export default {
 					to: {
 						height: '0'
 					}
+				},
+				'glow-pulse': {
+					'0%, 100%': {
+						boxShadow: '0 0 20px hsl(var(--console-accent) / 0.4)'
+					},
+					'50%': {
+						boxShadow: '0 0 40px hsl(var(--console-accent) / 0.8)'
+					}
+				},
+				'button-press': {
+					'0%': {
+						transform: 'scale(1)'
+					},
+					'50%': {
+						transform: 'scale(0.95)'
+					},
+					'100%': {
+						transform: 'scale(1)'
+					}
 				}
 			},
 			animation: {
 				'accordion-down': 'accordion-down 0.2s ease-out',
-				'accordion-up': 'accordion-up 0.2s ease-out'
+				'accordion-up': 'accordion-up 0.2s ease-out',
+				'glow-pulse': 'glow-pulse 2s ease-in-out infinite',
+				'button-press': 'button-press 0.3s ease-out'
 			}
 		}
 	},
