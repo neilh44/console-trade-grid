@@ -4,31 +4,12 @@ import { Button } from '@/components/ui/button';
 const ConsoleNavBar = () => {
   return (
     <div className="flex items-center justify-between w-full max-w-full bg-gradient-ps-dark border border-ps-blue/30 rounded-lg sm:rounded-xl md:rounded-2xl p-2 sm:p-3 md:p-4 lg:p-6 mb-2 sm:mb-4 md:mb-6 lg:mb-8 shadow-ps overflow-hidden">
-      {/* Left side - Navigation */}
-      <div className="flex items-center space-x-1 sm:space-x-2 md:space-x-4 lg:space-x-6 flex-shrink-0">
-        <Button
-          variant="ghost"
-          size="sm"
-          className="w-6 h-6 sm:w-8 sm:h-8 md:w-10 md:h-10 lg:w-12 lg:h-12 p-0 hover:bg-ps-blue/20 hover:shadow-ps border border-ps-blue/30 rounded-md sm:rounded-lg md:rounded-xl transition-all duration-300"
-        >
-          <ChevronLeft className="w-3 h-3 sm:w-4 sm:h-4 md:w-5 md:h-5 lg:w-6 lg:h-6 text-ps-blue" />
-        </Button>
-        
-        <div className="flex items-center space-x-1 sm:space-x-2 md:space-x-3 lg:space-x-4 text-ps-blue font-gaming font-bold">
-          <div className="flex items-center space-x-1">
-            <div className="w-1 h-1 sm:w-1.5 sm:h-1.5 md:w-2 md:h-2 bg-ps-blue rounded-full animate-pulse" />
-            <span className="text-xs sm:text-sm md:text-base lg:text-xl tracking-tight sm:tracking-wide md:tracking-wider">PAGE</span>
-          </div>
-          <span className="text-sm sm:text-lg md:text-2xl lg:text-3xl text-foreground">1</span>
+      {/* Left side - Status indicator */}
+      <div className="flex items-center flex-shrink-0">
+        <div className="flex items-center space-x-1 sm:space-x-2 text-ps-blue font-gaming font-bold">
+          <div className="w-1 h-1 sm:w-1.5 sm:h-1.5 md:w-2 md:h-2 bg-ps-blue rounded-full animate-pulse" />
+          <span className="text-xs sm:text-sm md:text-base lg:text-xl tracking-tight sm:tracking-wide md:tracking-wider">STATUS</span>
         </div>
-        
-        <Button
-          variant="ghost"
-          size="sm"
-          className="w-6 h-6 sm:w-8 sm:h-8 md:w-10 md:h-10 lg:w-12 lg:h-12 p-0 hover:bg-ps-blue/20 hover:shadow-ps border border-ps-blue/30 rounded-md sm:rounded-lg md:rounded-xl transition-all duration-300"
-        >
-          <ChevronRight className="w-3 h-3 sm:w-4 sm:h-4 md:w-5 md:h-5 lg:w-6 lg:h-6 text-ps-blue" />
-        </Button>
       </div>
       
       {/* Center - Main title */}

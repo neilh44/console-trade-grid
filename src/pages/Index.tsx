@@ -53,29 +53,6 @@ const Index = () => {
         <main className="flex-1 flex flex-col items-center justify-center px-4 py-8">
           <TradingGrid />
           
-          {/* PlayStation-style branding footer */}
-          <div className="mt-16 text-center max-w-4xl mx-auto">
-            <div className="bg-gradient-ps-dark border border-ps-blue/30 rounded-2xl px-8 py-6 shadow-ps">
-              <div className="flex items-center justify-center space-x-3">
-                <div className="flex space-x-1">
-                  <div className="w-3 h-3 bg-neon-green rounded-full animate-pulse shadow-neon-green" />
-                  <div className="w-3 h-3 bg-neon-red rounded-full animate-pulse shadow-neon-red" style={{ animationDelay: '0.5s' }} />
-                  <div className="w-3 h-3 bg-ps-blue rounded-full animate-pulse shadow-ps" style={{ animationDelay: '1s' }} />
-                </div>
-              </div>
-              
-              {/* PlayStation branding */}
-              <div className="mt-4 pt-4 border-t border-ps-blue/20">
-                <div className="flex items-center justify-center space-x-2">
-                  <div className="w-2 h-2 bg-ps-blue rounded-full animate-pulse" />
-                  <span className="text-xs text-ps-blue font-pixel tracking-widest">
-                    POWERED BY PLAYSTATION INTERFACE
-                  </span>
-                  <div className="w-2 h-2 bg-ps-blue rounded-full animate-pulse" />
-                </div>
-              </div>
-            </div>
-          </div>
         </main>
       </div>
     </div>
