@@ -53,30 +53,14 @@ const Index = () => {
         <main className="flex-1 flex flex-col items-center justify-center px-4 py-8">
           <TradingGrid />
           
-          {/* PlayStation-style control instructions */}
+          {/* PlayStation-style branding footer */}
           <div className="mt-16 text-center max-w-4xl mx-auto">
             <div className="bg-gradient-ps-dark border border-ps-blue/30 rounded-2xl px-8 py-6 shadow-ps">
-              <div className="flex flex-wrap items-center justify-center gap-6 md:gap-8">
-                {/* Gamepad controls */}
-                <div className="flex items-center space-x-3">
-                  <div className="flex space-x-1">
-                    <div className="w-3 h-3 bg-neon-green rounded-full animate-pulse shadow-neon-green" />
-                    <div className="w-3 h-3 bg-neon-red rounded-full animate-pulse shadow-neon-red" style={{ animationDelay: '0.5s' }} />
-                    <div className="w-3 h-3 bg-ps-blue rounded-full animate-pulse shadow-ps" style={{ animationDelay: '1s' }} />
-                  </div>
-                  <span className="text-sm text-foreground font-gaming tracking-wider">
-                    WASD / ARROW KEYS
-                  </span>
-                </div>
-                
-                {/* Action button */}
-                <div className="flex items-center space-x-3">
-                  <div className="px-3 py-1 bg-ps-blue/20 border border-ps-blue rounded-lg">
-                    <span className="text-xs text-ps-blue font-gaming tracking-wider">ENTER</span>
-                  </div>
-                  <span className="text-sm text-foreground font-gaming tracking-wider">
-                    EXECUTE TRADE
-                  </span>
+              <div className="flex items-center justify-center space-x-3">
+                <div className="flex space-x-1">
+                  <div className="w-3 h-3 bg-neon-green rounded-full animate-pulse shadow-neon-green" />
+                  <div className="w-3 h-3 bg-neon-red rounded-full animate-pulse shadow-neon-red" style={{ animationDelay: '0.5s' }} />
+                  <div className="w-3 h-3 bg-ps-blue rounded-full animate-pulse shadow-ps" style={{ animationDelay: '1s' }} />
                 </div>
               </div>
               
