@@ -56,36 +56,36 @@ const TradingButton = ({ type, onClick, isFocused, onFocus }: TradingButtonProps
     }
   };
 
-  // PlayStation-style button classes
+  // PlayStation-style button classes - reduced size
   const getButtonClasses = () => {
     const baseClasses = `
-      relative group w-full aspect-square
-      bg-gradient-button border-2 rounded-3xl overflow-hidden
+      relative group w-24 h-20 sm:w-28 sm:h-24 md:w-32 md:h-28 max-w-40 max-h-32
+      bg-gradient-button border-2 rounded-2xl overflow-hidden
       transform transition-all duration-300 ease-out
       focus:outline-none font-gaming
       ${isPressed ? 'animate-button-press' : ''}
       ${isLoading ? 'animate-pulse' : ''}
-      ${isFocused ? 'ring-4 ring-ps-blue animate-ps-glow' : ''}
+      ${isFocused ? 'ring-2 ring-ps-blue animate-ps-glow' : ''}
     `;
     
     if (isBullish) {
       return `${baseClasses}
         border-bull hover:border-neon-green
-        hover:bg-gradient-bull hover:scale-110 hover:shadow-neon-green
+        hover:bg-gradient-bull hover:scale-105 hover:shadow-neon-green
         ${isHovered || isFocused ? 'shadow-neon-green animate-neon-pulse' : 'border-bull/50'}
       `;
     } else {
       return `${baseClasses}
         border-bear hover:border-neon-red
-        hover:bg-gradient-bear hover:scale-110 hover:shadow-neon-red
+        hover:bg-gradient-bear hover:scale-105 hover:shadow-neon-red
         ${isHovered || isFocused ? 'shadow-neon-red animate-neon-pulse' : 'border-bear/50'}
       `;
     }
   };
 
   const getTextClasses = () => {
-    const baseText = `text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-foreground
-                     font-gaming tracking-widest uppercase transition-all duration-300
+    const baseText = `text-sm sm:text-base md:text-lg lg:text-xl font-bold text-foreground
+                     font-gaming tracking-wider uppercase transition-all duration-300
                      ${isLoading ? 'animate-pulse' : ''}`;
     
     if (isBullish) {
@@ -109,9 +109,9 @@ const TradingButton = ({ type, onClick, isFocused, onFocus }: TradingButtonProps
 
   const getLoadingClasses = () => {
     if (isBullish) {
-      return 'w-4 h-4 bg-neon-green rounded-full animate-ping';
+      return 'w-2 h-2 bg-neon-green rounded-full animate-ping';
     } else {
-      return 'w-4 h-4 bg-neon-red rounded-full animate-ping';
+      return 'w-2 h-2 bg-neon-red rounded-full animate-ping';
     }
   };
 
@@ -149,20 +149,20 @@ const TradingButton = ({ type, onClick, isFocused, onFocus }: TradingButtonProps
            }} />
       
       {/* Button Content */}
-      <div className="relative z-10 h-full flex flex-col items-center justify-center p-6 space-y-2">
+      <div className="relative z-10 h-full flex flex-col items-center justify-center p-2 sm:p-3 space-y-1">
         {/* Main label */}
         <div className={getTextClasses()}>
           {type}
         </div>
         
         {/* PlayStation-style subtitle */}
-        <div className="text-xs md:text-sm text-muted-foreground font-pixel tracking-wider opacity-80">
-          {isBullish ? 'LONG POSITION' : 'SHORT POSITION'}
+        <div className="text-xs text-muted-foreground font-pixel tracking-wider opacity-80 hidden sm:block">
+          {isBullish ? 'LONG' : 'SHORT'}
         </div>
         
         {/* Loading Indicator */}
         {isLoading && (
-          <div className="absolute top-4 right-4 flex space-x-1">
+          <div className="absolute top-1 right-1 flex space-x-1">
             <div className={getLoadingClasses()} />
             <div className={getLoadingClasses()} style={{ animationDelay: '0.2s' }} />
             <div className={getLoadingClasses()} style={{ animationDelay: '0.4s' }} />
@@ -171,17 +171,17 @@ const TradingButton = ({ type, onClick, isFocused, onFocus }: TradingButtonProps
         
         {/* Focus indicator */}
         {isFocused && (
-          <div className="absolute bottom-2 left-1/2 transform -translate-x-1/2">
-            <div className="w-12 h-1 bg-ps-blue rounded-full animate-pulse" />
+          <div className="absolute bottom-1 left-1/2 transform -translate-x-1/2">
+            <div className="w-6 h-0.5 bg-ps-blue rounded-full animate-pulse" />
           </div>
         )}
       </div>
       
       {/* PlayStation corner accents */}
-      <div className={`absolute top-2 left-2 w-4 h-4 border-l-2 border-t-2 transition-colors duration-300
+      <div className={`absolute top-1 left-1 w-2 h-2 border-l border-t transition-colors duration-300
                       ${isBullish ? 'border-neon-green' : 'border-neon-red'}
                       ${isHovered || isFocused ? 'opacity-100' : 'opacity-50'}`} />
-      <div className={`absolute bottom-2 right-2 w-4 h-4 border-r-2 border-b-2 transition-colors duration-300
+      <div className={`absolute bottom-1 right-1 w-2 h-2 border-r border-b transition-colors duration-300
                       ${isBullish ? 'border-neon-green' : 'border-neon-red'}
                       ${isHovered || isFocused ? 'opacity-100' : 'opacity-50'}`} />
     </button>
