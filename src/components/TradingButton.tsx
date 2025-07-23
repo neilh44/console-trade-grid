@@ -56,13 +56,14 @@ const TradingButton = ({ type, onClick, isFocused, onFocus }: TradingButtonProps
     }
   };
 
-  // PlayStation-style button classes - reduced size
+  // PlayStation-style button classes - reduced size with center alignment
   const getButtonClasses = () => {
     const baseClasses = `
       relative group w-24 h-20 sm:w-28 sm:h-24 md:w-32 md:h-28 max-w-40 max-h-32
       bg-gradient-button border-2 rounded-2xl overflow-hidden
       transform transition-all duration-300 ease-out
       focus:outline-none font-gaming
+      mx-auto
       ${isPressed ? 'animate-button-press' : ''}
       ${isLoading ? 'animate-pulse' : ''}
       ${isFocused ? 'ring-2 ring-ps-blue animate-ps-glow' : ''}
@@ -116,75 +117,77 @@ const TradingButton = ({ type, onClick, isFocused, onFocus }: TradingButtonProps
   };
 
   return (
-    <button
-      ref={buttonRef}
-      onClick={handleClick}
-      onFocus={onFocus}
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
-      disabled={isLoading}
-      className={getButtonClasses()}
-      tabIndex={0}
-    >
-      {/* Background Image with PlayStation-style overlay */}
-      <div 
-        className="absolute inset-0 bg-cover bg-center transition-all duration-500"
-        style={{ 
-          backgroundImage: `url(${imageUrl})`,
-          opacity: isHovered || isFocused ? 0.9 : 0.7,
-          filter: isHovered || isFocused ? 'brightness(1.2) saturate(1.3)' : 'brightness(0.8)'
-        }}
-      />
-      
-      {/* Dark overlay for contrast */}
-      <div className="absolute inset-0 bg-gradient-to-t from-background/95 via-background/40 to-background/20" />
-      
-      {/* Animated glow effect */}
-      <div className={getGlowClasses()} />
-      
-      {/* PlayStation-style scan lines */}
-      <div className="absolute inset-0 opacity-10"
-           style={{
-             background: 'repeating-linear-gradient(0deg, transparent, transparent 2px, hsl(var(--ps-blue)) 2px, hsl(var(--ps-blue)) 4px)'
-           }} />
-      
-      {/* Button Content */}
-      <div className="relative z-10 h-full flex flex-col items-center justify-center p-2 sm:p-3 space-y-1">
-        {/* Main label */}
-        <div className={getTextClasses()}>
-          {type}
+    <div className="flex justify-center items-center w-full">
+      <button
+        ref={buttonRef}
+        onClick={handleClick}
+        onFocus={onFocus}
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => setIsHovered(false)}
+        disabled={isLoading}
+        className={getButtonClasses()}
+        tabIndex={0}
+      >
+        {/* Background Image with PlayStation-style overlay */}
+        <div 
+          className="absolute inset-0 bg-cover bg-center transition-all duration-500"
+          style={{ 
+            backgroundImage: `url(${imageUrl})`,
+            opacity: isHovered || isFocused ? 0.9 : 0.7,
+            filter: isHovered || isFocused ? 'brightness(1.2) saturate(1.3)' : 'brightness(0.8)'
+          }}
+        />
+        
+        {/* Dark overlay for contrast */}
+        <div className="absolute inset-0 bg-gradient-to-t from-background/95 via-background/40 to-background/20" />
+        
+        {/* Animated glow effect */}
+        <div className={getGlowClasses()} />
+        
+        {/* PlayStation-style scan lines */}
+        <div className="absolute inset-0 opacity-10"
+             style={{
+               background: 'repeating-linear-gradient(0deg, transparent, transparent 2px, hsl(var(--ps-blue)) 2px, hsl(var(--ps-blue)) 4px)'
+             }} />
+        
+        {/* Button Content */}
+        <div className="relative z-10 h-full flex flex-col items-center justify-center p-2 sm:p-3 space-y-1">
+          {/* Main label */}
+          <div className={getTextClasses()}>
+            {type}
+          </div>
+          
+          {/* PlayStation-style subtitle */}
+          <div className="text-xs text-muted-foreground font-pixel tracking-wider opacity-80 hidden sm:block">
+            {isBullish ? 'LONG' : 'SHORT'}
+          </div>
+          
+          {/* Loading Indicator */}
+          {isLoading && (
+            <div className="absolute top-1 right-1 flex space-x-1">
+              <div className={getLoadingClasses()} />
+              <div className={getLoadingClasses()} style={{ animationDelay: '0.2s' }} />
+              <div className={getLoadingClasses()} style={{ animationDelay: '0.4s' }} />
+            </div>
+          )}
+          
+          {/* Focus indicator */}
+          {isFocused && (
+            <div className="absolute bottom-1 left-1/2 transform -translate-x-1/2">
+              <div className="w-6 h-0.5 bg-ps-blue rounded-full animate-pulse" />
+            </div>
+          )}
         </div>
         
-        {/* PlayStation-style subtitle */}
-        <div className="text-xs text-muted-foreground font-pixel tracking-wider opacity-80 hidden sm:block">
-          {isBullish ? 'LONG' : 'SHORT'}
-        </div>
-        
-        {/* Loading Indicator */}
-        {isLoading && (
-          <div className="absolute top-1 right-1 flex space-x-1">
-            <div className={getLoadingClasses()} />
-            <div className={getLoadingClasses()} style={{ animationDelay: '0.2s' }} />
-            <div className={getLoadingClasses()} style={{ animationDelay: '0.4s' }} />
-          </div>
-        )}
-        
-        {/* Focus indicator */}
-        {isFocused && (
-          <div className="absolute bottom-1 left-1/2 transform -translate-x-1/2">
-            <div className="w-6 h-0.5 bg-ps-blue rounded-full animate-pulse" />
-          </div>
-        )}
-      </div>
-      
-      {/* PlayStation corner accents */}
-      <div className={`absolute top-1 left-1 w-2 h-2 border-l border-t transition-colors duration-300
-                      ${isBullish ? 'border-neon-green' : 'border-neon-red'}
-                      ${isHovered || isFocused ? 'opacity-100' : 'opacity-50'}`} />
-      <div className={`absolute bottom-1 right-1 w-2 h-2 border-r border-b transition-colors duration-300
-                      ${isBullish ? 'border-neon-green' : 'border-neon-red'}
-                      ${isHovered || isFocused ? 'opacity-100' : 'opacity-50'}`} />
-    </button>
+        {/* PlayStation corner accents */}
+        <div className={`absolute top-1 left-1 w-2 h-2 border-l border-t transition-colors duration-300
+                        ${isBullish ? 'border-neon-green' : 'border-neon-red'}
+                        ${isHovered || isFocused ? 'opacity-100' : 'opacity-50'}`} />
+        <div className={`absolute bottom-1 right-1 w-2 h-2 border-r border-b transition-colors duration-300
+                        ${isBullish ? 'border-neon-green' : 'border-neon-red'}
+                        ${isHovered || isFocused ? 'opacity-100' : 'opacity-50'}`} />
+      </button>
+    </div>
   );
 };
 

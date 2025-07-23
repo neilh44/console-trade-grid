@@ -70,46 +70,6 @@ const TradingGrid = () => {
           </div>
         ))}
       </div>
-      
-      {/* PlayStation-style HUD status bar */}
-      <div className="mt-12 p-6 bg-gradient-ps-dark border border-ps-blue/30 rounded-2xl shadow-ps">
-        <div className="flex items-center justify-between">
-          {/* Left side - System status */}
-          <div className="flex items-center space-x-6">
-            <div className="flex items-center space-x-3">
-              <div className="w-3 h-3 bg-neon-green rounded-full animate-pulse shadow-neon-green" />
-              <span className="text-sm text-foreground font-gaming tracking-wider">SYSTEM ONLINE</span>
-            </div>
-            <div className="flex items-center space-x-3">
-              <div className="w-3 h-3 bg-ps-blue rounded-full animate-float shadow-ps" />
-              <span className="text-sm text-foreground font-gaming tracking-wider">MARKET ACTIVE</span>
-            </div>
-          </div>
-          
-          {/* Center - Current focus indicator */}
-          {isKeyboardNavigation && (
-            <div className="flex items-center space-x-3">
-              <div className="px-4 py-2 bg-ps-blue/20 border border-ps-blue rounded-lg">
-                <span className="text-sm text-ps-blue font-gaming tracking-wider">
-                  SELECTED: {buttons[focusedButton]}
-                </span>
-              </div>
-            </div>
-          )}
-          
-          {/* Right side - Connection status */}
-          <div className="flex items-center space-x-3">
-            <div className="w-3 h-3 bg-neon-cyan rounded-full animate-pulse" />
-            <span className="text-sm text-foreground font-gaming tracking-wider">CONNECTED</span>
-          </div>
-        </div>
-        
-        {/* PlayStation-style progress bar */}
-        <div className="mt-4 h-1 bg-ps-blue/20 rounded-full overflow-hidden">
-          <div className="h-full bg-gradient-to-r from-ps-blue to-ps-blue-glow animate-shimmer" 
-               style={{ width: '100%' }} />
-        </div>
-      </div>
     </div>
   );
 };
