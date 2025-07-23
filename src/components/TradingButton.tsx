@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { toast } from 'sonner';
 import bullIcon from '@/assets/bull-icon.jpg';
 import bearIcon from '@/assets/bear-icon.jpg';
@@ -6,23 +6,35 @@ import bearIcon from '@/assets/bear-icon.jpg';
 interface TradingButtonProps {
   type: 'BUY' | 'SELL' | 'SHORT' | 'COVER';
   onClick?: () => void;
+  isFocused?: boolean;
+  onFocus?: () => void;
 }
 
-const TradingButton = ({ type, onClick }: TradingButtonProps) => {
+const TradingButton = ({ type, onClick, isFocused, onFocus }: TradingButtonProps) => {
   const [isPressed, setIsPressed] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [isHovered, setIsHovered] = useState(false);
+  const buttonRef = useRef<HTMLButtonElement>(null);
 
   const isBullish = type === 'BUY' || type === 'COVER';
   const imageUrl = isBullish ? bullIcon : bearIcon;
-  const colorClass = isBullish ? 'bull' : 'bear';
-  const shadowClass = isBullish ? 'shadow-bull' : 'shadow-bear';
-  const gradientClass = isBullish ? 'bg-gradient-bull' : 'bg-gradient-bear';
+  
+  useEffect(() => {
+    if (isFocused && buttonRef.current) {
+      buttonRef.current.focus();
+    }
+  }, [isFocused]);
 
   const handleClick = async () => {
     if (isLoading) return;
     
     setIsPressed(true);
     setIsLoading(true);
+    
+    // PlayStation-style haptic feedback simulation
+    if (navigator.vibrate) {
+      navigator.vibrate(50);
+    }
     
     try {
       const endpoint = `/api/${type.toLowerCase()}`;
@@ -44,89 +56,134 @@ const TradingButton = ({ type, onClick }: TradingButtonProps) => {
     }
   };
 
-  // Define static classes to avoid dynamic class issues
-  const buttonClasses = isBullish 
-    ? `
+  // PlayStation-style button classes
+  const getButtonClasses = () => {
+    const baseClasses = `
       relative group w-full aspect-square
-      bg-gradient-button hover:bg-gradient-bull
-      border-2 border-border hover:border-bull
-      rounded-2xl overflow-hidden
+      bg-gradient-button border-2 rounded-3xl overflow-hidden
       transform transition-all duration-300 ease-out
-      hover:scale-105 hover:shadow-bull
-      ${isPressed ? 'scale-95' : ''}
-      ${isLoading ? 'animate-pulse' : 'hover:animate-none'}
-      focus:outline-none focus:ring-4 focus:ring-bull/50
-    `
-    : `
-      relative group w-full aspect-square
-      bg-gradient-button hover:bg-gradient-bear
-      border-2 border-border hover:border-bear
-      rounded-2xl overflow-hidden
-      transform transition-all duration-300 ease-out
-      hover:scale-105 hover:shadow-bear
-      ${isPressed ? 'scale-95' : ''}
-      ${isLoading ? 'animate-pulse' : 'hover:animate-none'}
-      focus:outline-none focus:ring-4 focus:ring-bear/50
+      focus:outline-none font-gaming
+      ${isPressed ? 'animate-button-press' : ''}
+      ${isLoading ? 'animate-pulse' : ''}
+      ${isFocused ? 'ring-4 ring-ps-blue animate-ps-glow' : ''}
     `;
+    
+    if (isBullish) {
+      return `${baseClasses}
+        border-bull hover:border-neon-green
+        hover:bg-gradient-bull hover:scale-110 hover:shadow-neon-green
+        ${isHovered || isFocused ? 'shadow-neon-green animate-neon-pulse' : 'border-bull/50'}
+      `;
+    } else {
+      return `${baseClasses}
+        border-bear hover:border-neon-red
+        hover:bg-gradient-bear hover:scale-110 hover:shadow-neon-red
+        ${isHovered || isFocused ? 'shadow-neon-red animate-neon-pulse' : 'border-bear/50'}
+      `;
+    }
+  };
 
-  const textClasses = isBullish
-    ? `text-2xl md:text-3xl lg:text-4xl font-bold text-foreground
-       group-hover:text-bull-glow transition-colors duration-300
-       font-mono tracking-wider ${isLoading ? 'animate-pulse' : ''}`
-    : `text-2xl md:text-3xl lg:text-4xl font-bold text-foreground
-       group-hover:text-bear-glow transition-colors duration-300
-       font-mono tracking-wider ${isLoading ? 'animate-pulse' : ''}`;
+  const getTextClasses = () => {
+    const baseText = `text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-foreground
+                     font-gaming tracking-widest uppercase transition-all duration-300
+                     ${isLoading ? 'animate-pulse' : ''}`;
+    
+    if (isBullish) {
+      return `${baseText} group-hover:text-neon-green ${isHovered || isFocused ? 'text-neon-green drop-shadow-lg' : ''}`;
+    } else {
+      return `${baseText} group-hover:text-neon-red ${isHovered || isFocused ? 'text-neon-red drop-shadow-lg' : ''}`;
+    }
+  };
 
-  const glowClasses = isBullish
-    ? 'absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-gradient-to-t from-bull/20 to-transparent'
-    : 'absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-gradient-to-t from-bear/20 to-transparent';
+  const getGlowClasses = () => {
+    const baseGlow = 'absolute inset-0 transition-opacity duration-500';
+    
+    if (isBullish) {
+      return `${baseGlow} bg-gradient-to-t from-neon-green/30 via-neon-green/10 to-transparent
+              ${isHovered || isFocused ? 'opacity-100' : 'opacity-0'}`;
+    } else {
+      return `${baseGlow} bg-gradient-to-t from-neon-red/30 via-neon-red/10 to-transparent
+              ${isHovered || isFocused ? 'opacity-100' : 'opacity-0'}`;
+    }
+  };
 
-  const loadingClasses = isBullish
-    ? 'w-3 h-3 bg-bull rounded-full animate-ping'
-    : 'w-3 h-3 bg-bear rounded-full animate-ping';
-
-  const cornerClasses = isBullish
-    ? `absolute top-0 right-0 w-0 h-0 border-l-[20px] border-l-transparent
-       border-b-[20px] border-b-bull/30 group-hover:border-b-bull/60
-       transition-colors duration-300`
-    : `absolute top-0 right-0 w-0 h-0 border-l-[20px] border-l-transparent
-       border-b-[20px] border-b-bear/30 group-hover:border-b-bear/60
-       transition-colors duration-300`;
+  const getLoadingClasses = () => {
+    if (isBullish) {
+      return 'w-4 h-4 bg-neon-green rounded-full animate-ping';
+    } else {
+      return 'w-4 h-4 bg-neon-red rounded-full animate-ping';
+    }
+  };
 
   return (
     <button
+      ref={buttonRef}
       onClick={handleClick}
+      onFocus={onFocus}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
       disabled={isLoading}
-      className={buttonClasses}
+      className={getButtonClasses()}
+      tabIndex={0}
     >
-      {/* Background Image */}
+      {/* Background Image with PlayStation-style overlay */}
       <div 
-        className="absolute inset-0 bg-cover bg-center opacity-60 group-hover:opacity-80 transition-opacity duration-300"
-        style={{ backgroundImage: `url(${imageUrl})` }}
+        className="absolute inset-0 bg-cover bg-center transition-all duration-500"
+        style={{ 
+          backgroundImage: `url(${imageUrl})`,
+          opacity: isHovered || isFocused ? 0.9 : 0.7,
+          filter: isHovered || isFocused ? 'brightness(1.2) saturate(1.3)' : 'brightness(0.8)'
+        }}
       />
       
-      {/* Overlay Gradient */}
-      <div className="absolute inset-0 bg-gradient-to-t from-background/90 via-background/20 to-transparent" />
+      {/* Dark overlay for contrast */}
+      <div className="absolute inset-0 bg-gradient-to-t from-background/95 via-background/40 to-background/20" />
       
-      {/* Glow Effect */}
-      <div className={glowClasses} />
+      {/* Animated glow effect */}
+      <div className={getGlowClasses()} />
+      
+      {/* PlayStation-style scan lines */}
+      <div className="absolute inset-0 opacity-10"
+           style={{
+             background: 'repeating-linear-gradient(0deg, transparent, transparent 2px, hsl(var(--ps-blue)) 2px, hsl(var(--ps-blue)) 4px)'
+           }} />
       
       {/* Button Content */}
-      <div className="relative z-10 h-full flex flex-col items-center justify-end p-6">
-        <div className={textClasses}>
+      <div className="relative z-10 h-full flex flex-col items-center justify-center p-6 space-y-2">
+        {/* Main label */}
+        <div className={getTextClasses()}>
           {type}
+        </div>
+        
+        {/* PlayStation-style subtitle */}
+        <div className="text-xs md:text-sm text-muted-foreground font-pixel tracking-wider opacity-80">
+          {isBullish ? 'LONG POSITION' : 'SHORT POSITION'}
         </div>
         
         {/* Loading Indicator */}
         {isLoading && (
-          <div className="absolute top-4 right-4">
-            <div className={loadingClasses} />
+          <div className="absolute top-4 right-4 flex space-x-1">
+            <div className={getLoadingClasses()} />
+            <div className={getLoadingClasses()} style={{ animationDelay: '0.2s' }} />
+            <div className={getLoadingClasses()} style={{ animationDelay: '0.4s' }} />
+          </div>
+        )}
+        
+        {/* Focus indicator */}
+        {isFocused && (
+          <div className="absolute bottom-2 left-1/2 transform -translate-x-1/2">
+            <div className="w-12 h-1 bg-ps-blue rounded-full animate-pulse" />
           </div>
         )}
       </div>
       
-      {/* Corner Accent */}
-      <div className={cornerClasses} />
+      {/* PlayStation corner accents */}
+      <div className={`absolute top-2 left-2 w-4 h-4 border-l-2 border-t-2 transition-colors duration-300
+                      ${isBullish ? 'border-neon-green' : 'border-neon-red'}
+                      ${isHovered || isFocused ? 'opacity-100' : 'opacity-50'}`} />
+      <div className={`absolute bottom-2 right-2 w-4 h-4 border-r-2 border-b-2 transition-colors duration-300
+                      ${isBullish ? 'border-neon-green' : 'border-neon-red'}
+                      ${isHovered || isFocused ? 'opacity-100' : 'opacity-50'}`} />
     </button>
   );
 };

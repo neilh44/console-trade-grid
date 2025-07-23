@@ -62,14 +62,31 @@ export default {
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
 				},
-				// Gaming console colors
+				// PlayStation Gaming Colors
+				'ps-blue': {
+					DEFAULT: 'hsl(var(--ps-blue))',
+					glow: 'hsl(var(--ps-blue-glow))',
+					dark: 'hsl(var(--ps-blue-dark))'
+				},
+				'neon-green': {
+					DEFAULT: 'hsl(var(--neon-green))',
+					glow: 'hsl(var(--neon-green-glow))'
+				},
+				'neon-red': {
+					DEFAULT: 'hsl(var(--neon-red))',
+					glow: 'hsl(var(--neon-red-glow))'
+				},
+				'neon-cyan': 'hsl(var(--neon-cyan))',
+				'neon-purple': 'hsl(var(--neon-purple))',
 				bull: {
 					DEFAULT: 'hsl(var(--bull))',
-					glow: 'hsl(var(--bull-glow))'
+					glow: 'hsl(var(--bull-glow))',
+					dark: 'hsl(var(--bull-dark))'
 				},
 				bear: {
 					DEFAULT: 'hsl(var(--bear))',
-					glow: 'hsl(var(--bear-glow))'
+					glow: 'hsl(var(--bear-glow))',
+					dark: 'hsl(var(--bear-dark))'
 				},
 				console: {
 					DEFAULT: 'hsl(var(--console-accent))',
@@ -77,16 +94,26 @@ export default {
 				}
 			},
 			backgroundImage: {
+				'gradient-ps-primary': 'var(--gradient-ps-primary)',
+				'gradient-ps-dark': 'var(--gradient-ps-dark)',
 				'gradient-console': 'var(--gradient-console)',
 				'gradient-bull': 'var(--gradient-bull)',
 				'gradient-bear': 'var(--gradient-bear)',
 				'gradient-button': 'var(--gradient-button)',
+				'gradient-button-hover': 'var(--gradient-button-hover)',
 			},
 			boxShadow: {
+				'ps': 'var(--shadow-ps)',
 				'console': 'var(--shadow-console)',
 				'bull': 'var(--shadow-bull)',
 				'bear': 'var(--shadow-bear)',
 				'glow': 'var(--shadow-glow)',
+				'neon-green': 'var(--shadow-neon-green)',
+				'neon-red': 'var(--shadow-neon-red)',
+			},
+			fontFamily: {
+				'gaming': ['Orbitron', 'monospace'],
+				'pixel': ['Press Start 2P', 'monospace'],
 			},
 			borderRadius: {
 				lg: 'var(--radius)',
@@ -110,12 +137,20 @@ export default {
 						height: '0'
 					}
 				},
-				'glow-pulse': {
+				'ps-glow': {
 					'0%, 100%': {
-						boxShadow: '0 0 20px hsl(var(--console-accent) / 0.4)'
+						boxShadow: '0 0 30px hsl(var(--ps-blue) / 0.4), inset 0 0 30px hsl(var(--ps-blue) / 0.1)'
 					},
 					'50%': {
-						boxShadow: '0 0 40px hsl(var(--console-accent) / 0.8)'
+						boxShadow: '0 0 60px hsl(var(--ps-blue) / 0.8), inset 0 0 30px hsl(var(--ps-blue) / 0.2)'
+					}
+				},
+				'neon-pulse': {
+					'0%, 100%': {
+						boxShadow: '0 0 20px currentColor, inset 0 0 20px currentColor'
+					},
+					'50%': {
+						boxShadow: '0 0 40px currentColor, inset 0 0 40px currentColor'
 					}
 				},
 				'button-press': {
@@ -123,18 +158,49 @@ export default {
 						transform: 'scale(1)'
 					},
 					'50%': {
-						transform: 'scale(0.95)'
+						transform: 'scale(0.92)'
 					},
 					'100%': {
 						transform: 'scale(1)'
+					}
+				},
+				'gaming-scale': {
+					'0%': {
+						transform: 'scale(1) rotate(0deg)'
+					},
+					'50%': {
+						transform: 'scale(1.05) rotate(1deg)'
+					},
+					'100%': {
+						transform: 'scale(1) rotate(0deg)'
+					}
+				},
+				'shimmer': {
+					'0%': {
+						backgroundPosition: '-1000px 0'
+					},
+					'100%': {
+						backgroundPosition: '1000px 0'
+					}
+				},
+				'float': {
+					'0%, 100%': {
+						transform: 'translateY(0px)'
+					},
+					'50%': {
+						transform: 'translateY(-10px)'
 					}
 				}
 			},
 			animation: {
 				'accordion-down': 'accordion-down 0.2s ease-out',
 				'accordion-up': 'accordion-up 0.2s ease-out',
-				'glow-pulse': 'glow-pulse 2s ease-in-out infinite',
-				'button-press': 'button-press 0.3s ease-out'
+				'ps-glow': 'ps-glow 3s ease-in-out infinite',
+				'neon-pulse': 'neon-pulse 2s ease-in-out infinite',
+				'button-press': 'button-press 0.2s ease-out',
+				'gaming-scale': 'gaming-scale 0.4s ease-out',
+				'shimmer': 'shimmer 2s linear infinite',
+				'float': 'float 3s ease-in-out infinite'
 			}
 		}
 	},
